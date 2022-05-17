@@ -37,6 +37,7 @@ americanaLayers.push(
   lyrPark.fill,
   lyrAeroway.fill,
   lyrPark.parkFill,
+  lyrPark.cemeteryFill,
 
   lyrBoundary.countyCasing,
   lyrBoundary.stateCasing,
@@ -263,6 +264,7 @@ americanaLayers.push(
 
   lyrPark.label,
   lyrPark.parkLabel,
+  lyrPark.cemeteryLabel,
   /* The ref label shows up at lower zoom levels and when the long name doesn't fit */
   lyrAeroway.airportRefLabel,
   lyrAeroway.minorAirportRefLabel,
