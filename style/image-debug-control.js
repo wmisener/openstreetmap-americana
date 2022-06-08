@@ -19,13 +19,32 @@ const imageObjectToImg = (obj) => {
 };
 
 class ImageDebugControl extends maplibregl.Evented {
-  constructor() {
-    super();
-
-    this.onButtonClick = this.onButtonClick.bind(this);
+  onBtnNewClick(event) {
+    const w = window.open();
+    w.document.head.innerHTML = `
+    <meta name=viewport content="width=device-width">
+    <style>
+    @media screen {
+      img {
+        background: magenta;
+        image-rendering: pixelated;
+      }
+    }
+    @media print {
+      .noprint { display: none }
+      img {
+        border: 0.5px dashed;
+        image-rendering: pixelated;
+      }
+    }
+    </style>`;
+    w.document.body.innerHTML = `
+    <button class=noprint onclick=print()>Print</button>
+    `;
+    w.document.body.append(this._dialog.querySelector('div'));
   }
 
-  onButtonClick(event) {
+  onControlButtonClick(event) {
     event.preventDefault();
 
     if (this._dialog) {
@@ -43,7 +62,8 @@ class ImageDebugControl extends maplibregl.Evented {
 
     this._dialog = document.createElement("dialog");
     this._dialog.className = "image-debug-results";
-    this._dialog.innerHTML = `<form method="dialog"><button aria-label="Close">❌</button></form>`;
+    this._dialog.innerHTML = `<form method="dialog"><button aria-label="New window" id="btnNew">↗</button><button aria-label="Close">❌</button></form>`;
+    this._dialog.firstChild.btnNew.addEventListener("click", (event) => this.onBtnNewClick(event));
     this._dialog.append(div);
     document.body.append(this._dialog);
     this._dialog.showModal();
@@ -53,7 +73,7 @@ class ImageDebugControl extends maplibregl.Evented {
     this._map = map;
 
     this._button = document.createElement("button");
-    this._button.addEventListener("click", this.onButtonClick);
+    this._button.addEventListener("click",(event) => this.onControlButtonClick(event));
     this._button.textContent = "Images";
 
     this._container = document.createElement("div");
@@ -61,10 +81,6 @@ class ImageDebugControl extends maplibregl.Evented {
     this._container.append(this._button);
 
     return this._container;
-  }
-
-  onRemove(map) {
-    this._button.removeEventListener("click", this.onButtonClick);
   }
 }
 

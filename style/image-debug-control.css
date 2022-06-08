@@ -1,6 +1,7 @@
-.image-debug-results form button {
-  float: right;
+.image-debug-results form {
+  text-align: right;
 }
 .image-debug-results img {
   background: magenta;
+  image-rendering: pixelated;
 }
