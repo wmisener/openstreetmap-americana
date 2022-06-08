@@ -24,6 +24,7 @@ import * as maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import * as search from "./search.js";
 
+import ImageDebugControl from "./image-debug-control.js";
 import SampleControl from "openmapsamples-maplibre/OpenMapSamplesControl";
 import { default as OpenMapTilesSamples } from "openmapsamples/samples/OpenMapTiles";
 
@@ -504,5 +505,6 @@ OpenMapTilesSamples.forEach((sample, i) => {
   sampleControl.addSample(sample);
 });
 map.addControl(sampleControl, "bottom-left");
+map.addControl(new ImageDebugControl, "bottom-left");
 
 map.getCanvas().focus();
