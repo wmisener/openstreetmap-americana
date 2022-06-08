@@ -36,12 +36,14 @@ class ImageDebugControl extends maplibregl.Evented {
     for (const [id, obj] of Object.entries(
       this._map.style.imageManager.images
     )) {
+      const label = JSON.stringify(id).replace(/^"/, "").replace(/"$/, "");
       const image = imageObjectToImg(obj);
-      div.append(JSON.stringify(id), image, document.createElement("br"));
+      div.append(image, label, document.createElement("br"));
     }
 
     this._dialog = document.createElement("dialog");
-    this._dialog.innerHTML = `<form method="dialog"><button aria-label="Close" style="float:right">❌</button></form>`;
+    this._dialog.className = "image-debug-results";
+    this._dialog.innerHTML = `<form method="dialog"><button aria-label="Close">❌</button></form>`;
     this._dialog.append(div);
     document.body.append(this._dialog);
     this._dialog.showModal();
