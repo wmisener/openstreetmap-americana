@@ -3411,6 +3411,10 @@ export function loadShields(shieldImages) {
       bottom: 7,
     },
   };
+  shields["IN:NE"] = {
+    ...shields["IN:NH"],
+    numberingSystem: "roman",
+  };
 
   // Indonesia
   shields["ID:national"] = {
